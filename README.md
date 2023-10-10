@@ -3,6 +3,7 @@ About r-trend-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-trend-feedstock/blob/main/LICENSE.txt)
 
+
 About r-trend
 -------------
 
@@ -11,6 +12,7 @@ Home: https://CRAN.R-project.org/package=trend
 Package license: GPL-3.0-only
 
 Summary: The analysis of environmental data often requires the detection of trends and change-points. This package includes tests for trend detection (Cox-Stuart Trend Test, Mann-Kendall Trend Test, (correlated) Hirsch-Slack Test, partial Mann-Kendall Trend Test, multivariate (multisite) Mann-Kendall Trend Test, (Seasonal) Sen's slope, partial Pearson and Spearman correlation trend test), change-point detection (Lanzante's test procedures, Pettitt's test, Buishand Range Test, Buishand U Test, Standard Normal Homogeinity Test), detection of non-randomness (Wallis-Moore Phase Frequency Test, Bartels rank von Neumann's ratio test, Wald-Wolfowitz Test) and the two sample Robust Rank-Order Distributional Test.
+
 About r-trend
 -------------
 
