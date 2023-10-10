@@ -1,4 +1,4 @@
-{% set version = "1.1.5" %}
+{% set version = "1.1.6" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/trend_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/trend/trend_{{ version }}.tar.gz
-  sha256: c658b3e9b475e46c76643fdacdff7e5512a24c9e2f46c9589b4bca2252e6ba8b
+  sha256: b0005e4afb6cc6522925fe1ff172902e4db6f83c3550f05c26e04c39cd752125
 
 build:
   merge_build_host: true  # [win]
-  number: 1
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
