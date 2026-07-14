@@ -1,4 +1,4 @@
-{% set version = "1.1.6" %}
+{% set version = "1.1.7" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,10 +9,10 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/trend_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/trend/trend_{{ version }}.tar.gz
-  sha256: b0005e4afb6cc6522925fe1ff172902e4db6f83c3550f05c26e04c39cd752125
+  sha256: be78964f95bd7ae77939bd50c14b6448377930c0488e3906c1276e9d0e01ce56
 
 build:
-  number: 2
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -46,9 +46,9 @@ test:
 about:
   home: https://CRAN.R-project.org/package=trend
   license: GPL-3.0-only
-  summary: The analysis of environmental data often requires the detection of trends and change-points. This package includes tests for trend detection (Cox-Stuart Trend Test, Mann-Kendall Trend Test, (correlated) Hirsch-Slack Test, partial Mann-Kendall Trend Test, multivariate (multisite) Mann-Kendall Trend Test, (Seasonal)
-    Sen's slope, partial Pearson and Spearman correlation trend test), change-point detection (Lanzante's test procedures, Pettitt's test, Buishand Range Test, Buishand U Test, Standard Normal Homogeinity Test), detection of non-randomness (Wallis-Moore Phase Frequency Test, Bartels rank von Neumann's ratio test, Wald-Wolfowitz
-    Test) and the two sample Robust Rank-Order Distributional Test.
+  summary: The analysis of environmental data often requires the detection of trends and change-points. This package includes tests for trend detection (Cox-Stuart Trend Test, Mann-Kendall Trend Test, (correlated) Hirsch-Slack Test, partial Mann-Kendall Trend Test, multivariate (multisite) Mann-Kendall Trend Test, 
+    (Seasonal) Sen's slope, partial Pearson and Spearman correlation trend test), change-point detection (Lanzante's test procedures, Pettitt's test, Buishand Range Test, Buishand U Test, Standard Normal Homogeinity Test), detection of non-randomness (Wallis-Moore Phase Frequency Test, Bartels rank von Neumann's ratio 
+    test, Wald-Wolfowitz Test) and the two sample Robust Rank-Order Distributional Test.
   license_family: GPL3
   license_file:
     - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
