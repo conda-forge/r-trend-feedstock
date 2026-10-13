@@ -1,4 +1,4 @@
-{% set version = "1.1.8" %}
+{% set version = "1.1.9" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,7 +9,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/trend_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/trend/trend_{{ version }}.tar.gz
-  sha256: b82e1f4af4819581794bbc7821c15bec2689054d84af98970bf5db1720edf918
+  sha256: 2cefe1213bffc26ff3b95ff26ab6b1f096109dac789187dd103c4ac00c6f88fe
 
 build:
   number: 0
