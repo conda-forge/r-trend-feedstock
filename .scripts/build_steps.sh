@@ -38,11 +38,24 @@ pkgs_dirs:
 solver: libmamba
 
 CONDARC
-mv /opt/conda/conda-meta/history /opt/conda/conda-meta/history.$(date +%Y-%m-%d-%H-%M-%S)
-echo > /opt/conda/conda-meta/history
-micromamba install --root-prefix ~/.conda --prefix /opt/conda \
-    --yes --override-channels --channel conda-forge --strict-channel-priority \
+
+( endgroup "Configuring build environment" ) 2> /dev/null
+
+( startgroup "Provisioning base env with micromamba" ) 2> /dev/null
+
+MAMBA_ROOT_PREFIX=~/.conda
+MICROMAMBA_EXE=micromamba
+
+echo Creating environment
+mv "${MINIFORGE_HOME}"/conda-meta/history "${MINIFORGE_HOME}"/conda-meta/history.$(date +%Y-%m-%d-%H-%M-%S)
+echo > "${MINIFORGE_HOME}"/conda-meta/history
+"${MICROMAMBA_EXE}" install --yes --root-prefix "${MAMBA_ROOT_PREFIX}" --prefix "${MINIFORGE_HOME}" \
+    --override-channels --channel conda-forge --strict-channel-priority \
     pip  python=3.14 conda-build conda-forge-ci-setup=4 "conda-build>=26.3"
+
+( endgroup "Provisioning base env with micromamba" ) 2> /dev/null
+
+( startgroup "Configuring conda" ) 2> /dev/null
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
 
@@ -56,9 +69,6 @@ echo Running build setup
 source run_conda_forge_build_setup
 
 
-
-# make the build number clobber
-make_build_number "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
 
 if [[ "${HOST_PLATFORM}" != "${BUILD_PLATFORM}" ]] && [[ "${HOST_PLATFORM}" != linux-* ]] && [[ "${BUILD_WITH_CONDA_DEBUG:-0}" != 1 ]]; then
     EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --no-test"

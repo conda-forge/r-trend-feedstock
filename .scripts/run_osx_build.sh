@@ -41,13 +41,13 @@ MICROMAMBA_TMPDIR=$(mktemp -d)
 MICROMAMBA_EXE=${MICROMAMBA_TMPDIR}/micromamba
 
 echo "Downloading micromamba ${MICROMAMBA_VERSION}"
-micromamba_exe="$(mktemp -d)/micromamba"
-curl -L -o "${micromamba_exe}" "${MICROMAMBA_URL}"
-chmod +x "${micromamba_exe}"
-echo "Creating environment"
-"${micromamba_exe}" create --yes --root-prefix "${MAMBA_ROOT_PREFIX}" --prefix "${MINIFORGE_HOME}" \
-  --channel conda-forge \
-  pip python=3.14 conda-build conda-forge-ci-setup=4 "conda-build>=26.3"
+curl -L -o "${MICROMAMBA_EXE}" "${MICROMAMBA_URL}"
+chmod +x "${MICROMAMBA_EXE}"
+
+echo Creating environment
+"${MICROMAMBA_EXE}" create --yes --root-prefix "${MAMBA_ROOT_PREFIX}" --prefix "${MINIFORGE_HOME}" \
+    --override-channels --channel conda-forge --strict-channel-priority \
+    pip python=3.14 conda-build conda-forge-ci-setup=4 "conda-build>=26.3"
 echo "Moving pkgs cache from ${MAMBA_ROOT_PREFIX} to ${MINIFORGE_HOME}"
 mv "${MAMBA_ROOT_PREFIX}/pkgs" "${MINIFORGE_HOME}"
 
@@ -113,6 +113,9 @@ source run_conda_forge_build_setup
 
 
 
+if [[ "${HOST_PLATFORM}" != "${BUILD_PLATFORM}" ]] && [[ "${BUILD_WITH_CONDA_DEBUG:-0}" != 1 ]]; then
+    EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --no-test"
+fi
 
 
 ( endgroup "Configuring conda" ) 2> /dev/null
@@ -140,14 +143,8 @@ if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
     /bin/bash
 fi
 
-    if [[ "${HOST_PLATFORM}" != "${BUILD_PLATFORM}" ]]; then
-        EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --no-test"
-    fi
-
-    CONDA_SUBDIR="${BUILD_PLATFORM}" conda-build ./recipe -m ./.ci_support/${CONFIG}.yaml \
-        --suppress-variables ${EXTRA_CB_OPTIONS:-} \
-        --clobber-file ./.ci_support/clobber_${CONFIG}.yaml \
-        --extra-meta flow_run_id="$flow_run_id" remote_url="$remote_url" sha="$sha"
+# Build the recipe
+echo Building recipe
 
 # differences between conda-build vs. rattler-build
 #   - recipe is positional vs. --recipe "${RECIPE_ROOT}"
